@@ -1,0 +1,18 @@
+﻿@model ShoppingCenter.Models.Products
+@{
+    ViewBag.Title = "Add products";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+
+<h2>Index</h2>
+
+@section leftSide
+{
+
+    @using (Html.BeginForm("add_product", "Home"))
+    {
+        @Html.EditorFor(m => m)
+        <input type="submit" value="Add" />
+    }
+}

@@ -1,0 +1,30 @@
+﻿@model List<ShoppingCenter.Models.Products>
+@{
+    ViewBag.Title = "Offer";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<br />
+<h2 style="padding-top:20px; padding-left:20px;">Special offer!</h2>
+
+
+<th>
+    
+        <table id="tableOrder" border="1" cellpadding="2">
+
+            <tr><td>ID</td><td>Name</td><td>Type</td><td>Price</td><td>Amount</td><td>Add to basket</td></tr>
+            @foreach (var items in Model)
+            {
+                
+                <tr><td>@items.productID</td><td>@items.productName</td><td>@items.productType</td><td>@items.productPrice</td><td>@items.productAmount</td><td><input type="number" name="value" min="0" max="@items.productAmount"  /></td><td>@Html.ActionLink("Order Now", "Order", "Home",new { id = items.productID, quantity = 1},null)</td></tr>
+
+            }
+
+        </table>
+    
+    
+
+ 
+</th>
+
+
+

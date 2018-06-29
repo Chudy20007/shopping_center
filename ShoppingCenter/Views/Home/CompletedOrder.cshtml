@@ -1,0 +1,63 @@
+﻿@model List<ShoppingCenter.Models.Items>
+@{
+    ViewBag.Title = "CompletedOrder";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    double totalPrice = 0;
+    
+
+}
+
+
+
+<h2 style="padding-top:20px; padding-right:60px; text-align:right">Completed order</h2>
+
+    @*@section leftSide
+        {
+            <table id="tableOrder" border="1" cellpadding="2">
+
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Type</td>
+                    <td>Price</td>
+                    <td>Amount</td>
+                </tr>
+                @foreach (var items in Model)
+                {
+
+                    <tr><td>@items.productID</td><td>@items.productName</td><td>@items.productType</td><td>@items.productPrice</td><td>@items.productAmount</td></tr>
+
+                }
+            </table>
+
+        }*@
+
+    @section rightSide
+
+{
+
+        <table id="tableOrder" border="1" cellpadding="2">
+            <tr><td>ID</td><td>Name</td><td>Type</td><td>Price</td><td>Amount</td></tr>
+            @foreach (var items in (List<ShoppingCenter.Models.Items>)Session["Order"])
+    {
+
+        string method = items.MethodPayment;
+        totalPrice += @items.Product.productPrice * @items.Quantity;
+
+
+                <tr><td>@items.Product.productID</td><td>@items.Product.productName</td><td>@items.Product.productType</td><td>@items.Product.productPrice</td><td>@items.Quantity</td></tr>
+
+                if (items.MethodPayment != null)
+                {
+                    <text> Selected payment method:</text> @items.MethodPayment
+                    <text> Selected receive method:</text> @items.Reception
+    }
+
+}
+
+        </table>
+<h2>Total price: @totalPrice</h2>
+
+    }
+
+

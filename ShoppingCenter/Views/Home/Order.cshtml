@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+@using ShoppingCenter.Controllers;
+
+<h2 style="padding-top:20px; padding-left:20px;">Order</h2>
+
+<table id="tableOrder" border="1" cellpadding="2">
+
+    <tr><td>ID</td><td>Name</td><td>Type</td><td>Price</td><td>Amount</td><td>Add to basket</td></tr>
+    @foreach (var items in (List<ShoppingCenter.Models.Items>)Session["Order"])
+            {
+
+        <tr><td>@items.Product.productID</td><td>@items.Product.productName</td><td>@items.Product.productType</td><td>@items.Product.productPrice</td><td>@items.Quantity</td><td></td></tr>
+
+    }
+   
+</table>
+<h3 style="text-align:left; padding-top:20px; padding-left:20px;">
+    @Html.ActionLink("Continue shopping", "Offer", "Home") 
+    <br />
+    <br />
+    @Html.ActionLink("Send order", "CompleteOrder", "Home")
+    </h3>
+
+
+
+
+

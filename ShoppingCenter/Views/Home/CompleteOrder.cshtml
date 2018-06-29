@@ -1,0 +1,67 @@
+﻿@model List<ShoppingCenter.Models.Products>
+@{
+    ViewBag.Title = "CompleteOrder";
+
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    double totalPrice = 0;
+}
+
+
+
+@section leftSide
+{
+<h3 style="padding-top:20px; padding-left:20px;">
+    Products list:
+</h3>
+<br />
+    <table id="tableOrder" border="1" cellpadding="2">
+
+    <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Type</td>
+        <td>Price</td>
+        <td>Amount</td>
+        </tr>
+        @foreach (var items in Model)
+        {
+
+        <tr><td>@items.productID</td><td>@items.productName</td><td>@items.productType</td><td>@items.productPrice</td><td>@items.productAmount</td></tr>
+
+        }
+    </table>
+
+}
+
+@section rightSide
+{
+    <h3 style="padding-top:20px; padding-left:20px;">
+    Your basket:</h3>
+    <br />
+    <table id="tableOrder" border="1" cellpadding="2">
+        <tr><td>ID</td><td>Name</td><td>Type</td><td>Price</td><td>Amount</td></tr>
+        @foreach (var items in (List<ShoppingCenter.Models.Items>)Session["Order"])
+        {
+
+
+            totalPrice += @items.Product.productPrice * @items.Quantity;
+
+
+            <tr><td>@items.Product.productID</td><td>@items.Product.productName</td><td>@items.Product.productType</td><td>@items.Product.productPrice</td><td>@items.Quantity</td></tr>
+
+        }
+
+    </table>
+    <h3>Method payment</h3>
+    @Html.ActionLink("Select method payment: PAYPAL, receive method: HOME", "CompletedOrder", "Home", routeValues: new { methodPayment = "PAYPAL", reception="Home" }, htmlAttributes: null)
+    <br /><br />
+    @Html.ActionLink("Select method payment: CASH, receive method: SHOP", "CompletedOrder", "Home", routeValues: new { methodPayment = "CASH", reception= "Shop" }, htmlAttributes: null)
+    <br /><br />
+    @Html.ActionLink("Select method payment: BANK TRANSFER,  receive method: HOME", "CompletedOrder", "Home", routeValues: new { methodPayment = "Bank transfer",reception="Home" }, htmlAttributes: null)
+
+
+    <br />
+
+    <h2>Total price: @totalPrice</h2>
+
+}
